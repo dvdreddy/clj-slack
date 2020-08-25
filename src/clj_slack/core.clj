@@ -92,7 +92,8 @@
    (slack-request connection endpoint {}))
   ([connection endpoint query]
    (let [url (-> connection verify :api-url)
-         params (build-params connection endpoint query)]
+         params (build-params connection endpoint
+                              (stringify-keys query))]
      (send-request url params (request-options connection)))))
 
 (defn slack-post-request
@@ -105,4 +106,3 @@
                                stringify-keys
                                build-multiparts)]
     (send-post-request url multiparts-params (request-options connection))))
-
